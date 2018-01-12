@@ -4,6 +4,9 @@ const compileLoader = require('@neutrinojs/compile-loader');
 const node = require('@neutrinojs/node');
 const react = require('@neutrinojs/react');
 const merge = require('deepmerge');
+const { join } = require('path');
+
+const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options = {}) => {
   const airbnbOptions = merge({
@@ -93,4 +96,7 @@ module.exports = (neutrino, options = {}) => {
             require.resolve('babel-plugin-transform-class-properties')
           ]
         }, options));
+
+  neutrino.config.resolve.modules.add(MODULES);
+  neutrino.config.resolveLoader.modules.add(MODULES);
 };
