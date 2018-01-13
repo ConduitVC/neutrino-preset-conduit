@@ -52,7 +52,6 @@ module.exports = (neutrino, options = {}) => {
     }
   }, options.airbnb || {});
 
-
   if (options.node) {
     neutrino.use(airbnbBase, airbnbOptions);
     neutrino.use(node, options.node === true ? {} : options.node);
@@ -99,4 +98,9 @@ module.exports = (neutrino, options = {}) => {
 
   neutrino.config.resolve.modules.add(MODULES);
   neutrino.config.resolveLoader.modules.add(MODULES);
+
+  neutrino.config
+    .when(process.env.NODE_ENV === 'development', (config) => {
+      config.devtool('cheap-module-source-map');
+    });
 };
