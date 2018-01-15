@@ -103,4 +103,10 @@ module.exports = (neutrino, options = {}) => {
     .when(process.env.NODE_ENV === 'development', (config) => {
       config.devtool('cheap-module-source-map');
     });
+
+  neutrino.register(
+    'prettierrc',
+    () => neutrino.call('eslintrc').rules['prettier/prettier'][1],
+    'Return an object of accumulated prettier ESLint configuration suitable for use by .prettierrc.js'
+  );
 };
