@@ -10,6 +10,18 @@ configuration and ESLint rules adapted from Airbnb.
 - Tree-shaking to create smaller bundles
 - Production-optimized bundles with Babel minification, easy chunking, and scope-hoisted modules for faster execution
 - Easily extensible to customize your project as needed
+- Can build Flow and Typescript projects as well
+  - Add `neutrino-preset-conduit/flow` for Flowtype, and add a blank `.flowconfig` to start
+  - Add `neutrino-preset-conduit/typescript` for Typescript, and add the following `tsconfig.json` to start:
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "preserve",
+    "target": "es2016"
+  }
+}
+```
 
 ### React Features
 
