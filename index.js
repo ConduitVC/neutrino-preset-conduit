@@ -80,17 +80,6 @@ module.exports = (neutrino, options = {}) => {
     neutrino.use(react, options.react);
   }
 
-  // The RHL webpack entry isn't needed with RHL v4
-  neutrino.config
-    .entry('index')
-    .batch(index => {
-      index.merge(
-        index
-          .values()
-          .filter(entry => entry.includes('react-hot-loader'))
-      );
-    });
-
   // Decorators generally need to be enabled *before* other
   // syntax which exists in both normal plugins, and
   // development environment plugins.
