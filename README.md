@@ -52,14 +52,13 @@ configuration and ESLint rules adapted from Airbnb.
 
 ## Installation
 
-`neutrino-preset-conduit` is not currently published to npm, but can still be installed via a GitHub link. If you are
-writing a React app, be sure to also install `react` and `react-dom` for actual React development. You will need to
-install `neutrino` as well to build the project using the preset.
+If you are writing a React app, be sure to also install `react` and `react-dom` for actual React development.
+You will need to install `neutrino` as well to build the project using the preset.
 
 #### Yarn
 
 ```bash
-❯ yarn add --dev neutrino git+ssh://git@github.com/ConduitVC/neutrino-preset-conduit.git
+❯ yarn add --dev neutrino neutrino-preset-conduit
 
 # If creating a React app:
 ❯ yarn add react react-dom
@@ -68,7 +67,7 @@ install `neutrino` as well to build the project using the preset.
 #### npm
 
 ```bash
-❯ npm install --save-dev neutrino git+ssh://git@github.com/ConduitVC/neutrino-preset-conduit
+❯ npm install --save-dev neutrino neutrino-preset-conduit
 
 # If creating a React app:
 ❯ npm install --save react react-dom
@@ -348,7 +347,7 @@ application-specific changes in order to operate.
 
 ### React
 
-First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v3+:
+First, install `react-hot-loader` as a dependency, this **must** be React Hot Loader v4+, which is in beta:
 
 #### Yarn
 
@@ -364,31 +363,28 @@ First, install `react-hot-loader` as a dependency, this **must** be React Hot Lo
 
 ---
 
-From your main entry point (defaults to `src/index.*` from `neutrino.options.mains.index`), import an `AppContainer`
-from `react-hot-loader`. The main file may be named `index.js` or `index.jsx`. The extension is resolved by webpack.
-- Wrap your top-level React component in the `AppContainer`.
-- Perform the application render in a reusable function for initial load and subsequent reloads.
-- Add the `hot` acceptance to call this function.
+Follow the instructions for React Hot Loader, skipping the `babelrc` step as this is already
+handled for you by Neutrino:
 
-For example:
+https://github.com/gaearon/react-hot-loader/tree/next#getting-started
 
-```jsx
-import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-import MyApp from './MyApp';
+You will follow the step to "mark your root component as _hot-exported_":
 
-const load = () => render((
-  <AppContainer>
-    <MyApp />
-  </AppContainer>
-), document.getElementById('root'));
+```js
+// ./src/App/index.jsx
+import { Component } from 'react';
+import { hot } from 'react-hot-loader';
 
-if (module.hot) {
-  module.hot.accept('./MyApp', load);
+class App extends Component {
+  render() {
+    return <div>Hello World!</div>;    
+  }
 }
 
-load();
+export default hot(module)(App);
 ```
+
+That's it!
 
 ### Node.js
 
