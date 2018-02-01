@@ -9,6 +9,7 @@ const { join } = require('path');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options = {}) => {
+  const lintingEnabled = options.airbnb !== false || !neutrino.options.args.noLint;
   const airbnbOptions = merge({
     eslint: {
       baseConfig: {
@@ -53,10 +54,10 @@ module.exports = (neutrino, options = {}) => {
   }, options.airbnb || {});
 
   if (options.node) {
-    neutrino.use(airbnbBase, airbnbOptions);
+    lintingEnabled && neutrino.use(airbnbBase, airbnbOptions);
     neutrino.use(node, options.node === true ? {} : options.node);
   } else {
-    neutrino.use(airbnb, merge(airbnbOptions, {
+    lintingEnabled && neutrino.use(airbnb, merge(airbnbOptions, {
       eslint: {
         rules: {
           // great idea but it's not smart enough to detect ids in all cases.
