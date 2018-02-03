@@ -12,6 +12,9 @@ module.exports = (neutrino, options = {}) => {
   const lintingEnabled = options.airbnb !== false || !neutrino.options.args.noLint;
   const airbnbOptions = merge({
     eslint: {
+      fix: true,
+      emitWarning: process.env.NODE_ENV === 'development' ||
+        neutrino.options.command === 'styleguide:start',
       baseConfig: {
         extends: ['eslint-config-prettier']
       },
@@ -35,12 +38,16 @@ module.exports = (neutrino, options = {}) => {
         'no-return-assign': 'off',
         'no-shadow': 'off',
         'no-unused-expressions': 'off',
-        'prettier/prettier': ['error', {
-          singleQuote: true,
-          bracketSpacing: true,
-          jsxBracketSameLine: true,
-          trailingComma: 'es5',
-        }],
+        'prettier/prettier': [
+          'error',
+          {
+            singleQuote: true,
+            bracketSpacing: true,
+            jsxBracketSameLine: true,
+            trailingComma: 'es5',
+          },
+          { usePrettierrc: false }
+        ],
         'padding-line-between-statements': [
           'error',
           { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
@@ -61,13 +68,23 @@ module.exports = (neutrino, options = {}) => {
       eslint: {
         rules: {
           // great idea but it's not smart enough to detect ids in all cases.
-          'jsx-a11y/label-has-for': 'off',
+          // Enable anchors with react-router Link
+          'jsx-a11y/anchor-is-valid': ['error', {
+            components: ['Link'],
+            specialLink: ['to'],
+          }],
           'jsx-a11y/click-events-have-key-events': 'off',
+          'jsx-a11y/label-has-for': 'off',
           'jsx-a11y/no-noninteractive-element-interactions': 'off',
           'jsx-a11y/no-static-element-interactions': 'off',
+          'no-console': process.env.NODE_ENV === 'development' ? 'off' : 'error',
           // handled by prettier rules
           'react/default-props-match-prop-types': 'off',
           'react/jsx-closing-bracket-location': 'off',
+          'react/jsx-handler-names': ['error', {
+            eventHandlerPrefix: 'handle',
+            eventHandlerPropPrefix: 'on',
+          }],
           'react/jsx-indent': 'off',
           // styling choice which makes using redux in es6 style more difficult.
           'react/no-multi-comp': 'off',
@@ -78,7 +95,13 @@ module.exports = (neutrino, options = {}) => {
         }
       }
     }));
-    neutrino.use(react, options.react);
+    neutrino.use(react, merge({
+      style: {
+        extract: neutrino.options.command.includes('styleguide')
+          ? false :
+          {},
+      },
+    }, options.react));
   }
 
   // Decorators generally need to be enabled *before* other
