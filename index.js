@@ -9,12 +9,12 @@ const { join } = require('path');
 const MODULES = join(__dirname, 'node_modules');
 
 module.exports = (neutrino, options = {}) => {
+  const command = neutrino.options.command || '';
   const lintingEnabled = options.airbnb !== false || !neutrino.options.args.noLint;
   const airbnbOptions = merge({
     eslint: {
       fix: true,
-      emitWarning: process.env.NODE_ENV === 'development' ||
-        neutrino.options.command === 'styleguide:start',
+      emitWarning: process.env.NODE_ENV === 'development' || command === 'styleguide:start',
       baseConfig: {
         extends: ['eslint-config-prettier']
       },
@@ -97,7 +97,7 @@ module.exports = (neutrino, options = {}) => {
     }));
     neutrino.use(react, merge({
       style: {
-        extract: neutrino.options.command.includes('styleguide')
+        extract: command.includes('styleguide')
           ? false :
           {},
       },
