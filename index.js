@@ -13,7 +13,6 @@ module.exports = (neutrino, options = {}) => {
   const lintingEnabled = options.airbnb !== false || !neutrino.options.args.noLint;
   const airbnbOptions = merge({
     eslint: {
-      fix: true,
       emitWarning: process.env.NODE_ENV === 'development' || command === 'styleguide:start',
       baseConfig: {
         extends: ['eslint-config-prettier']
