@@ -1,29 +1,29 @@
 {
-  "name": "neutrino-preset-conduit",
-  "version": "3.0.0",
-  "main": "index.js",
+  "name": "@conduitvc/build",
+  "version": "1.0.0",
+  "description": "Develop, build, and lint React and Node.js applications with Neutrino-based presets for external tooling",
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
   "dependencies": {
-    "@neutrinojs/airbnb": "^8.0.18",
-    "@neutrinojs/airbnb-base": "^8.0.18",
-    "@neutrinojs/compile-loader": "^8.0.18",
-    "@neutrinojs/loader-merge": "^8.0.18",
-    "@neutrinojs/node": "^8.0.18",
-    "@neutrinojs/react": "^8.0.18",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-flow-comments": "^6.22.0",
-    "deepmerge": "^2.0.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-flowtype": "^2.41.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "flow-bin": "^0.63.1",
-    "fork-ts-checker-webpack-plugin": "^0.3.0",
-    "prettier": "^1.10.1",
-    "ts-loader": "^3.2.0",
-    "typescript": "^2.6.2"
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.6",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@neutrinojs/airbnb": "^9.0.0-beta.1",
+    "@neutrinojs/airbnb-base": "^9.0.0-beta.1",
+    "@neutrinojs/compile-loader": "^9.0.0-beta.1",
+    "@neutrinojs/node": "^9.0.0-beta.1",
+    "@neutrinojs/react": "^9.0.0-beta.1",
+    "deepmerge": "^2.2.1",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-flowtype": "^3.2.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "eslint-plugin-typescript": "^0.13.0"
   },
   "peerDependencies": {
-    "neutrino": "^8.0.0"
+    "eslint": "^5.0.0",
+    "neutrino": "^9.0.0-beta.1",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^3.0.0"
   }
 }
