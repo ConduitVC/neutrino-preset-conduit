@@ -1,6 +1,6 @@
 {
   "name": "@conduitvc/build",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Develop, build, and lint React and Node.js applications with Neutrino-based presets for external tooling",
   "author": "Eli Perelman <eli@eliperelman.com>",
   "license": "MIT",
